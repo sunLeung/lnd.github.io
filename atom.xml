@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>yxleung</title>
+  
+  <subtitle>小新的日常</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yxleung.github.io/"/>
+  <updated>2018-01-02T11:55:23.872Z</updated>
+  <id>http://yxleung.github.io/</id>
+  
+  <author>
+    <name>yxleung</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>交叉编译小米路由器2（R2D）shadowsocks</title>
+    <link href="http://yxleung.github.io/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82%EF%BC%88R2D%EF%BC%89shadowsocks/"/>
+    <id>http://yxleung.github.io/2018/01/02/交叉编译小米路由器2（R2D）shadowsocks/</id>
+    <published>2018-01-02T09:33:01.000Z</published>
+    <updated>2018-01-02T11:55:23.872Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="交叉编译小米路由器2（R2D）shadowsocks"><a href="#交叉编译小米路由器2（R2D）shadowsocks" class="headerlink" title="交叉编译小米路由器2（R2D）shadowsocks"></a>交叉编译小米路由器2（R2D）shadowsocks</h1><h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><blockquote><p>我是使用 <a href="https://shadowsocks.la/" target="_blank" rel="noopener">https://shadowsocks.la/</a> 提供的shadowsocks服务，由于最近服务商把shadowsocks加密方式换成了google的[chacha20-ietf-poly1305]，但是小米路由器（R2D）内置的ss-redir版本旧不支持。问题就来了，我一直在小米路由器做的透明代理（简单来说既是连接到这个路由的所有请求都自动走shadowsocks服务）就失效了;所以我需要更新R2D的ss-redir以便支持[chacha20-ietf-poly1305]加密;google后没有找到现成的，相关的文章也少，最后只能自己交叉编译一个，同时把编译过程记录下来，方便大家使用;</p></blockquote><h2 id="小白党，直接使用我编译："><a href="#小白党，直接使用我编译：" class="headerlink" title="小白党，直接使用我编译："></a>小白党，直接使用我编译：</h2><blockquote><p>最新版本openwrt-shadowsock下载链接<br><a href="https://github.com/yxleung/blog/raw/master/source/download/ss.zip" target="_blank" rel="noopener">https://github.com/yxleung/blog/raw/master/source/download/ss.zip</a></p></blockquote><h2 id="折腾党，我们手把手重新编译一次："><a href="#折腾党，我们手把手重新编译一次：" class="headerlink" title="折腾党，我们手把手重新编译一次："></a>折腾党，我们手把手重新编译一次：</h2><blockquote><p>编译清单<br>项目地址：<a href="https://github.com/shadowsocks/shadowsocks-libev" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-libev</a><br>编译环境：ubuntu<br>小米路由器SDK：<a href="http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip" target="_blank" rel="noopener">http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip</a><br>编译工具：make git autoconf libtool<br>编译核心依赖：TLS pcre libsodium libev c-ares</p></blockquote><p>下面的操作都在自己的home目录进行，我是临时用docker构建了个ubuntu编译的，所以都在/root目录下<br>1、下载小米路由器SDK<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip</div><div class="line">unzip sdk_package.zip</div></pre></td></tr></table></figure></p><p>2、设置环境变量<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/root/miwifi/sdk_package/toolchain/bin</div><div class="line">export CC=arm-xiaomi-linux-uclibcgnueabi-gcc</div><div class="line">export CXX=arm-xiaomi-linux-uclibcgnueabi-g++`</div><div class="line"><span class="meta">#</span>核心依赖包编译后放在这里</div><div class="line">mkdir /root/miwifi/ss_lib</div><div class="line">export SS_LIB=/root/miwifi/ss_lib</div></pre></td></tr></table></figure></p><p>3、安装基础依赖包<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt install -y make git autoconf libtool</div></pre></td></tr></table></figure></p><p>4、下载编译安装核心依赖包</p><p>编译mbedtls<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget --no-check-certificate https://tls.mbed.org/download/mbedtls-2.6.0-gpl.tgz</div><div class="line">tar -xzvf mbedtls-2.6.0-gpl.tgz</div><div class="line">cd mbedtls-2.6.0</div><div class="line">make -j$(nproc) DESTDIR=$SS_LIB CC=arm-xiaomi-linux-uclibcgnueabi-gcc AR=arm-xiaomi-linux-uclibcgnueabi-ar LD=arm-xiaomi-linux-uclibcgnueabi-ld install</div></pre></td></tr></table></figure></p><p>编译pcre<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.41.tar.gz</div><div class="line">tar -xzvf pcre-8.41.tar.gz</div><div class="line">cd pcre-8.41</div><div class="line">./configure --host=arm-xiaomi-linux-uclibcgnueabi --prefix=$SS_LIB --disable-shared --enable-utf8 --enable-unicode-properties</div><div class="line">make -j$(nproc) install</div></pre></td></tr></table></figure></p><p>编译libsodium<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget --no-check-certificate https://download.libsodium.org/libsodium/releases/libsodium-1.0.13.tar.gz</div><div class="line">tar -xzvf libsodium-1.0.13.tar.gz</div><div class="line">cd libsodium-1.0.13</div><div class="line">./configure --host=arm-xiaomi-linux-uclibcgnueabi --prefix=$SS_LIB --disable-ssp --disable-shared</div><div class="line">make -j$(nproc) install</div></pre></td></tr></table></figure></p><p>编译libev<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget http://dist.schmorp.de/libev/libev-4.24.tar.gz</div><div class="line">tar -xzvf libev-4.24.tar.gz</div><div class="line">cd libev-4.24</div><div class="line">./configure --host=arm-xiaomi-linux-uclibcgnueabi --prefix=$SS_LIB --disable-shared</div><div class="line">make -j$(nproc) install</div></pre></td></tr></table></figure></p><p>编译c-ares<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget --no-check-certificate https://c-ares.haxx.se/download/c-ares-1.13.0.tar.gz</div><div class="line">tar -xzvf c-ares-1.13.0.tar.gz</div><div class="line">cd c-ares-1.13.0</div><div class="line">./configure LDFLAGS=-static  --host=arm-xiaomi-linux-uclibcgnueabi --prefix=$SS_LIB</div></pre></td></tr></table></figure></p><p>5、正式编译shadowsocks-libev<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /root/miwifi/ss</div><div class="line">cd /root/miwifi/repo</div><div class="line">git clone https://github.com/shadowsocks/shadowsocks-libev</div><div class="line">cd shadowsocks-libev</div><div class="line">git submodule init</div><div class="line">git submodule update</div><div class="line">./autogen.sh</div><div class="line">./configure LIBS="-lpthread -lm" LDFLAGS="-Wl,-static -static -static-libgcc -L$SS_LIB/lib" CFLAGS="-I$SS_LIB/include" --host=arm-xiaomi-linux-uclibcgnueabi --prefix=/root/miwifi/ss --disable-ssp --disable-documentation --with-mbedtls=$SS_LIB --with-pcre=$SS_LIB --with-sodium=$SS_LIB</div><div class="line">make -j$(nproc) install</div></pre></td></tr></table></figure></p><p>编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;交叉编译小米路由器2（R2D）shadowsocks&quot;&gt;&lt;a href=&quot;#交叉编译小米路由器2（R2D）shadowsocks&quot; class=&quot;headerlink&quot; title=&quot;交叉编译小米路由器2（R2D）shadowsocks&quot;&gt;&lt;/a&gt;交叉编译小米路由
+      
+    
+    </summary>
+    
+      <category term="technology" scheme="http://yxleung.github.io/categories/technology/"/>
+    
+    
+      <category term="shadowsocks R2D 交叉编译 小米路由器" scheme="http://yxleung.github.io/tags/shadowsocks-R2D-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91-%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>entropy-note-01</title>
+    <link href="http://yxleung.github.io/2017/09/11/entropy-note-01/"/>
+    <id>http://yxleung.github.io/2017/09/11/entropy-note-01/</id>
+    <published>2017-09-11T06:54:58.000Z</published>
+    <updated>2018-01-02T09:09:55.440Z</updated>
+    
+    <content type="html"><![CDATA[<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js config=default"></script><h1 id="如何通俗易懂理解熵"><a href="#如何通俗易懂理解熵" class="headerlink" title="如何通俗易懂理解熵"></a>如何通俗易懂理解<code>熵</code></h1><p>让我们说人话！好的数学概念都应该是通俗易懂的。</p><p>信息熵，信息熵，怎么看怎么觉得这个“熵”字不顺眼，那就先不看。我们起码知道这个概念跟信息有关系。而它又是个数学模型里面的概念，一般而言是可以量化的。所以，第一个问题来了：<strong>信息是不是可以量化？</strong> </p><p>起码直觉上而言是可以的，不然怎么可能我们觉得有些人说的废话特别多，“没什么信息量”，有些人一语中的，一句话就传达了很大的信息量。</p><p><strong>为什么有的信息量大有的信息量小？</strong></p><p>有些事情本来不是很确定，例如明天股票是涨还是跌。如果你告诉我明天NBA决赛开始了，这两者似乎没啥关系啊，所以你的信息对明天股票是涨是跌带来的信息量很少。但是假如NBA决赛一开始，大家都不关注股票了没人坐庄股票有99%的概率会跌，那你这句话信息量就很大，因为本来不确定的事情变得十分确定。</p><p>而有些事情本来就很确定了，例如太阳从东边升起，你再告诉我一百遍太阳从东边升起，你的话还是丝毫没有信息量的，因为这事情不能更确定了。</p><p>所以说信息量的大小跟事情不确定性的变化有关。</p><p>那么，不确定性的变化跟什么有关呢？</p><p>一，跟事情的可能结果的数量有关；二，跟概率有关。</p><br><p>先说一。例如我们讨论太阳从哪升起。本来就只有一个结果，我们早就知道，那么无论谁传递任何信息都是没有信息量的。当可能结果数量比较大时，我们得到的新信息才有潜力拥有大信息量。</p><p>二，单看可能结果数量不够，还要看初始的概率分布。例如一开始我就知道小明在电影院的有15*15个座位的A厅看电影。小明可以坐的位置有225个，可能结果数量算多了。可是假如我们一开始就知道小明坐在第一排的最左边的可能是99%，坐其它位置的可能性微乎其微，那么在大多数情况下，你再告诉我小明的什么信息也没有多大用，因为我们几乎确定小明坐第一排的最左边了。</p><p>那么，怎么衡量不确定性的变化的大小呢？怎么定义呢？</p><p>这个问题不好回答，但是假设我们已经知道这个量已经存在了，不妨就叫做信息量，那么你觉得信息量起码该满足些什么特点呢？</p><ol><li>起码不是个负数吧，不然说句话还偷走信息呢~</li><li>起码信息量和信息量之间可以相加吧！假如你告诉我的第一句话的信息量是3，在第一句话的基础上又告诉我一句话，额外信息量是4，那么两句话信息量加起来应该等于7吧！难道还能是5是9？</li><li>刚刚已经提过，信息量跟概率有关系，但我们应该会觉得，信息量是连续依赖于概率的吧！就是说，某一个概率变化了0.0000001，那么这个信息量不应该变化很大。</li><li>刚刚也提过，信息量大小跟可能结果数量有关。假如每一个可能的结果出现的概率一样，那么对于可能结果数量多的那个事件，新信息有更大的潜力具有更大的信息量，因为初始状态下不确定性更大。</li></ol><p>那有什么函数能满足上面四个条件呢？负的对数函数，也就是-log（x）！底数取什么都行。前面再随便乘个常数也行。</p><ul><li>a. 为什么不是正的？因为假如是正的，由于x是小于等于1的数，log（x）就小于等于0了。第一个特点满足。</li><li>b. 咱们再来验证一下其他特点。三是最容易的。假如x是一个概率，那么log（x）是连续依赖于x的。done</li><li>c。四呢？假如有n个可能结果，那么出现任意一个的概率是1/n，而-log(1/n)是n的增函数，没问题。</li><li>d。最后验证二。由于-log(xy) = -log(x) -log(y)，所以也是对的。学数学的同学注意，这里的y可以是给定x的条件概率，当然也可以独立于x。</li></ul><p>By the way，这个函数是唯一的（除了还可以多乘上任意一个常数），有时间可以自己证明一下，或者查书。</p><br><p>ok，所以我们知道一个事件的信息量就是这个事件发生的概率的负对数。</p><p>最后终于能回到信息熵。信息熵是跟所有可能性有关系的。每个可能事件的发生都有个概率。信息熵就是平均而言发生一个事件我们得到的信息量大小。所以数学上，信息熵其实是信息量的期望。（表达式参考其它答案或者看下面）</p><br>$$H(x)=-\sum_{x \in U}P(x)\log P(x)$$<br><br><p>至于为什么用“熵”这个怪字？大概是当时翻译的人觉得这个量跟热力学的熵有关系，所以就用了这个字，君不见字里头的火字旁？</p><br><p>熵最早是由热力学定义的一个函数，是普朗克来中国讲学的时候引入的。英文是“entropy”这个字，中文词汇中没有相关的字眼。当时是一个有名的姓胡的学者作为普朗克的翻译。因为这个熵“S”是定义为热量Q与温度的比值，所以当时他翻译是立刻创造出熵这个字，从火，从商。</p><blockquote><p>作者：滴水<br><br>链接：<a href="https://www.zhihu.com/question/26446385/answer/50029104" target="_blank" rel="noopener">https://www.zhihu.com/question/26446385/answer/50029104</a><br><br>来源：知乎<br><br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js config=default&quot;&gt;&lt;/script&gt;
+
+&lt;h1 id=&quot;如何通俗易懂理解熵&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+      <category term="technology" scheme="http://yxleung.github.io/categories/technology/"/>
+    
+    
+      <category term="特征工程 信息熵 香农熵 entropy" scheme="http://yxleung.github.io/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B-%E4%BF%A1%E6%81%AF%E7%86%B5-%E9%A6%99%E5%86%9C%E7%86%B5-entropy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GNUroot debian android ssh设置</title>
+    <link href="http://yxleung.github.io/2017/09/09/GNUroot-android-ssh/"/>
+    <id>http://yxleung.github.io/2017/09/09/GNUroot-android-ssh/</id>
+    <published>2017-09-09T13:18:43.000Z</published>
+    <updated>2018-01-02T09:09:55.434Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="SSH设置"><a href="#SSH设置" class="headerlink" title="SSH设置"></a>SSH设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 安装openssh</div><div class="line">apt-get install openssh-server</div><div class="line"># 打开文件/etc/ssh/sshd_conifg,设置一下属性</div><div class="line">PermitRootLogin yes </div><div class="line">UsePAM no</div><div class="line">UsePrivilegeSeparation no</div></pre></td></tr></table></figure><h2 id="设置语言环境"><a href="#设置语言环境" class="headerlink" title="设置语言环境"></a>设置语言环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># 查看语言库</div><div class="line">locale -a</div><div class="line"># 安装locales</div><div class="line">apt-get install locales</div><div class="line"># 生成语言文件</div><div class="line">locale-gen zh_CN.UTF-8</div><div class="line">dpkg-reconfigure locales</div><div class="line"></div><div class="line">vi /etc/default/locale </div><div class="line">LANG=zh_CN.UTF-8</div><div class="line"></div><div class="line"># 设置环境变量vi ~/.bash_profile</div><div class="line">exoprt LANG=&quot;zh_CN.UTF-8&quot;</div><div class="line"># 生效</div><div class="line">source .bash_profile</div></pre></td></tr></table></figure><h2 id="设置时间同步"><a href="#设置时间同步" class="headerlink" title="设置时间同步"></a>设置时间同步</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 时间（时区）查看</div><div class="line">date -R</div><div class="line"># 安装时间同步程序</div><div class="line">apt-get install ntpdate</div><div class="line"># 同步时间</div><div class="line">ntpdate time.nist.gov</div><div class="line"># 选择时区（只是选择，选择后的结果需要copy到环境变量）</div><div class="line">tzselect</div><div class="line"># 设置环境变量vi ~/.bash_profile</div><div class="line">TZ=&apos;Asia/Shanghai&apos;; export TZ</div></pre></td></tr></table></figure><h2 id="命令别名"><a href="#命令别名" class="headerlink" title="命令别名"></a>命令别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 设置环境变量vi ~/.bash_profile</div><div class="line">alias l=&apos;ls -alhF&apos;</div><div class="line">alias la=&apos;ls -AFh&apos;</div><div class="line">alias ll=&apos;ls -lhAF&apos;</div></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;SSH设置&quot;&gt;&lt;a href=&quot;#SSH设置&quot; class=&quot;headerlink&quot; title=&quot;SSH设置&quot;&gt;&lt;/a&gt;SSH设置&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;
+      
+    
+    </summary>
+    
+      <category term="technology" scheme="http://yxleung.github.io/categories/technology/"/>
+    
+    
+      <category term="gnuroot debian" scheme="http://yxleung.github.io/tags/gnuroot-debian/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>tenserflow笔记-01</title>
+    <link href="http://yxleung.github.io/2017/09/09/tenserflow-note-01/"/>
+    <id>http://yxleung.github.io/2017/09/09/tenserflow-note-01/</id>
+    <published>2017-09-09T13:13:24.000Z</published>
+    <updated>2018-01-02T09:09:55.437Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是神经网络"><a href="#什么是神经网络" class="headerlink" title="什么是神经网络"></a>什么是神经网络</h2><p>让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。</p><p>简单来说，神经网络就是能够从训练数据集学习的函数。</p><h2 id="使用神经网络过程："><a href="#使用神经网络过程：" class="headerlink" title="使用神经网络过程："></a>使用神经网络过程：</h2><ol><li>首先要构建一个解决某一个问题的神经网络。（创建函数）</li><li>使用大量训练数据集，训练网络。（求解多元 方程组）</li><li>最终得到一个神经网络（函数），输入数据，输出期望信息。</li></ol><h2 id="简单原理"><a href="#简单原理" class="headerlink" title="简单原理"></a>简单原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">公式：W1x1 + W2x2 &gt; b</div></pre></td></tr></table></figure><ol><li>W1、W2：weigh权重，用于改变分类直线的角度。神经元角度（W1、W2代表了输入与神经元连接的强度）</li><li>b:bias 偏置，用于改变分类直线的位置。神经元角度（b表示一个神经元是否可被输入激活的阈值）</li></ol><h6 id="所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。"><a href="#所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。" class="headerlink" title="所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。"></a>所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。</h6><h4 id="问题：怎么找到W1、W2、b的值，即所谓参数值。"><a href="#问题：怎么找到W1、W2、b的值，即所谓参数值。" class="headerlink" title="问题：怎么找到W1、W2、b的值，即所谓参数值。"></a>问题：怎么找到W1、W2、b的值，即所谓参数值。</h4><blockquote><p>训练神经元，反向传播和梯度下降算法<br>训练过程中的计算机会尝试一点点增大或减小每个参数，看其能如何减少相比于训练 数据集的误差，以望能找到最优的参数组合。</p></blockquote><h3 id="找到了W1，W2，b，即可以使用神经元做分类。"><a href="#找到了W1，W2，b，即可以使用神经元做分类。" class="headerlink" title="找到了W1，W2，b，即可以使用神经元做分类。"></a>找到了W1，W2，b，即可以使用神经元做分类。</h3><p>一个神经元所能做的唯一事情：使用权重和偏置检查输入值，将一个数据点分到两类中的一类。</p><p>带有两个输入时，一个神经元可以使用一条直线将一个数据点在一个二维空间中分成两类。如果有三个输入，一个神经元可以使用一个平面将一个三维空间分成两部分，以此类推。这就是所谓的「使用一个超平面分割 n 维空间（dividing n-dimensional space with a hyperplane）」。</p><h4 id="一个神经元可以将任何数据点分为两类"><a href="#一个神经元可以将任何数据点分为两类" class="headerlink" title="一个神经元可以将任何数据点分为两类"></a>一个神经元可以将任何数据点分为两类</h4><h2 id="隐含层"><a href="#隐含层" class="headerlink" title="隐含层"></a>隐含层</h2><p>使用隐含层，将输入变换为特征空间，把非线性的问题，使其线性分类。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;什么是神经网络&quot;&gt;&lt;a href=&quot;#什么是神经网络&quot; class=&quot;headerlink&quot; title=&quot;什么是神经网络&quot;&gt;&lt;/a&gt;什么是神经网络&lt;/h2&gt;&lt;p&gt;让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求
+      
+    
+    </summary>
+    
+      <category term="technology" scheme="http://yxleung.github.io/categories/technology/"/>
+    
+    
+      <category term="tenserflow" scheme="http://yxleung.github.io/tags/tenserflow/"/>
+    
+  </entry>
+  
+</feed>
