@@ -8,7 +8,7 @@
       <content type="html"><![CDATA[<h1 id="交叉编译小米路由器2（R2D）shadowsocks"><a href="#交叉编译小米路由器2（R2D）shadowsocks" class="headerlink" title="交叉编译小米路由器2（R2D）shadowsocks"></a>交叉编译小米路由器2（R2D）shadowsocks</h1><h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><blockquote>
 <p>我是使用 <a href="https://shadowsocks.la/" target="_blank" rel="noopener">https://shadowsocks.la/</a> 提供的shadowsocks服务，由于最近服务商把shadowsocks加密方式换成了google的[chacha20-ietf-poly1305]，但是小米路由器（R2D）内置的ss-redir版本旧不支持。问题就来了，我一直在小米路由器做的透明代理（简单来说既是连接到这个路由的所有请求都自动走shadowsocks服务）就失效了;所以我需要更新R2D的ss-redir以便支持[chacha20-ietf-poly1305]加密;google后没有找到现成的，相关的文章也少，最后只能自己交叉编译一个，同时把编译过程记录下来，方便大家使用;</p>
 </blockquote>
-<h2 id="小白党，直接使用我编译："><a href="#小白党，直接使用我编译：" class="headerlink" title="小白党，直接使用我编译："></a>小白党，直接使用我编译：</h2><blockquote>
+<h2 id="小白党，直接使用我编译好的："><a href="#小白党，直接使用我编译好的：" class="headerlink" title="小白党，直接使用我编译好的："></a>小白党，直接使用我编译好的：</h2><blockquote>
 <p>最新版本openwrt-shadowsock下载链接<br><a href="https://github.com/yxleung/blog/raw/master/source/download/ss.zip" target="_blank" rel="noopener">https://github.com/yxleung/blog/raw/master/source/download/ss.zip</a></p>
 </blockquote>
 <h2 id="折腾党，我们手把手重新编译一次："><a href="#折腾党，我们手把手重新编译一次：" class="headerlink" title="折腾党，我们手把手重新编译一次："></a>折腾党，我们手把手重新编译一次：</h2><blockquote>
