@@ -25,6 +25,7 @@
 <p>编译c-ares<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd /root/miwifi/repo</div><div class="line">wget --no-check-certificate https://c-ares.haxx.se/download/c-ares-1.13.0.tar.gz</div><div class="line">tar -xzvf c-ares-1.13.0.tar.gz</div><div class="line">cd c-ares-1.13.0</div><div class="line">./configure LDFLAGS=-static  --host=arm-xiaomi-linux-uclibcgnueabi --prefix=$SS_LIB</div></pre></td></tr></table></figure></p>
 <p>5、正式编译shadowsocks-libev<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mkdir /root/miwifi/ss</div><div class="line">cd /root/miwifi/repo</div><div class="line">git clone https://github.com/shadowsocks/shadowsocks-libev</div><div class="line">cd shadowsocks-libev</div><div class="line">git submodule init</div><div class="line">git submodule update</div><div class="line">./autogen.sh</div><div class="line">./configure LIBS="-lpthread -lm" LDFLAGS="-Wl,-static -static -static-libgcc -L$SS_LIB/lib" CFLAGS="-I$SS_LIB/include" --host=arm-xiaomi-linux-uclibcgnueabi --prefix=/root/miwifi/ss --disable-ssp --disable-documentation --with-mbedtls=$SS_LIB --with-pcre=$SS_LIB --with-sodium=$SS_LIB</div><div class="line">make -j$(nproc) install</div></pre></td></tr></table></figure></p>
 <p>编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;</p>
+<p>最近比较忙，没有把小米路由部署SS教程写出来，有空我就补上;<br>有什么问题，可以直接email我，email地址在about页；</p>
 ]]></content>
       
         <categories>
@@ -36,7 +37,7 @@
         
         <tags>
             
-            <tag> shadowsocks R2D 交叉编译 小米路由器 </tag>
+            <tag> shadowsocks R2D 交叉编译 小米路由器 chacha20-ietf-poly1305 </tag>
             
         </tags>
         
