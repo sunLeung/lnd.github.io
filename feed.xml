@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-09-06T16:42:25+08:00</updated><id>/</id><title type="html">yxleung blog</title><subtitle></subtitle><entry><title type="html">ssh proxy setting</title><link href="/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html" rel="alternate" type="text/html" title="ssh proxy setting" /><published>2018-09-06T15:31:40+08:00</published><updated>2018-09-06T15:31:40+08:00</updated><id>/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy</id><content type="html" xml:base="/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html">&lt;h1 id=&quot;1-ssh-proxy-settting&quot;&gt;1. ssh proxy settting&lt;/h1&gt;
+
+&lt;h2 id=&quot;方法一通过命令行直连&quot;&gt;方法一、通过命令行直连&lt;/h2&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ssh通过跳板机代理，直连目标机器&lt;/span&gt;
+ssh 目标机器用户名@目标机器地址 &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 目标机器端口 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ProxyCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ssh -p 代理机器端口 代理机器用户名@代理机器地址 -W %h:%p'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# sftp通过跳板机代理,直连目标机器&lt;/span&gt;
+sftp &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; 目标机器端口 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ProxyCommand&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ssh -p 代理机器端口 代理机器用户名@代理机器地址 -W %h:%p'&lt;/span&gt; 目标机器用户明@目标机器地址
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;方法二通过ssh-config-配置文件&quot;&gt;方法二、通过SSH config 配置文件&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;创建~/.ssh/config文件，文件内容如下：
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Host myhost（随意，方便自己使用就好了）
+  HostName 目标机器地址
+  Port 目标端口
+  User 目标机器用户明
+  ProxyCommand ssh &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 代理机器端口 代理机器用户名@代理机器地址 &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; %h:%p
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;配置好config后，重启ssh服务后，即可用下面代码；
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 登陆&lt;/span&gt;
+ssh myhost
+&lt;span class=&quot;c&quot;&gt;# 文件传输sftp&lt;/span&gt;
+sftp myhost 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;2-ssh-tunnel代理服务&quot;&gt;2. ssh tunnel代理服务&lt;/h1&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 建立ssh socks5代理服务&lt;/span&gt;
+ssh &lt;span class=&quot;nt&quot;&gt;-qTNf&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-D&lt;/span&gt; 本地监听端口 远程服务器用户明@远程服务器地址 &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 远程服务器端口
+
+&lt;span class=&quot;c&quot;&gt;# 可选（socks5转http）&lt;/span&gt;
+brew services start privoxy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. ssh proxy settting</summary></entry><entry><title type="html">交叉编译小米路由器2（R2D）shadowsocks</title><link href="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" rel="alternate" type="text/html" title="交叉编译小米路由器2（R2D）shadowsocks" /><published>2018-01-02T17:33:01+08:00</published><updated>2018-01-02T17:33:01+08:00</updated><id>/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82(R2D)shadowsocks</id><content type="html" xml:base="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html">&lt;h1 id=&quot;交叉编译小米路由器2r2dshadowsocks&quot;&gt;交叉编译小米路由器2（R2D）shadowsocks&lt;/h1&gt;
+&lt;h2 id=&quot;背景&quot;&gt;背景：&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;我是使用 https://shadowsocks.la/ 提供的shadowsocks服务，由于最近服务商把shadowsocks加密方式换成了google的[chacha20-ietf-poly1305]，但是小米路由器（R2D）内置的ss-redir版本旧不支持。问题就来了，我一直在小米路由器做的透明代理（简单来说既是连接到这个路由的所有请求都自动走shadowsocks服务）就失效了;所以我需要更新R2D的ss-redir以便支持[chacha20-ietf-poly1305]加密;google后没有找到现成的，相关的文章也少，最后只能自己交叉编译一个，同时把编译过程记录下来，方便大家使用;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;小白党直接使用我编译&quot;&gt;小白党，直接使用我编译：&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;最新版本openwrt-shadowsock下载链接&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;折腾党我们手把手重新编译一次&quot;&gt;折腾党，我们手把手重新编译一次：&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;编译清单
+项目地址：https://github.com/shadowsocks/shadowsocks-libev
+编译环境：ubuntu
+小米路由器SDK：http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip
+编译工具：make git autoconf libtool 
+编译核心依赖：TLS pcre libsodium libev c-ares&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;下面的操作都在自己的home目录进行，我是临时用docker构建了个ubuntu编译的，所以都在/root目录下
+1、下载小米路由器SDK&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip
+unzip sdk_package.zip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2、设置环境变量&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:/root/miwifi/sdk_package/toolchain/bin
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi-gcc
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CXX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi-g++&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#核心依赖包编译后放在这里&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; /root/miwifi/ss_lib
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SS_LIB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/root/miwifi/ss_lib
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3、安装基础依赖包&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; make git autoconf libtool
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;4、下载编译安装核心依赖包&lt;/p&gt;
+
+&lt;p&gt;编译mbedtls&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+wget &lt;span class=&quot;nt&quot;&gt;--no-check-certificate&lt;/span&gt; https://tls.mbed.org/download/mbedtls-2.6.0-gpl.tgz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; mbedtls-2.6.0-gpl.tgz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;mbedtls-2.6.0
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DESTDIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi-gcc &lt;span class=&quot;nv&quot;&gt;AR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi-ar &lt;span class=&quot;nv&quot;&gt;LD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi-ld &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译pcre&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.41.tar.gz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; pcre-8.41.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;pcre-8.41
+./configure &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--disable-shared&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--enable-utf8&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--enable-unicode-properties&lt;/span&gt;
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译libsodium&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+wget &lt;span class=&quot;nt&quot;&gt;--no-check-certificate&lt;/span&gt; https://download.libsodium.org/libsodium/releases/libsodium-1.0.13.tar.gz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; libsodium-1.0.13.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;libsodium-1.0.13
+./configure &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--disable-ssp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--disable-shared&lt;/span&gt;
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译libev&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+wget http://dist.schmorp.de/libev/libev-4.24.tar.gz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; libev-4.24.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;libev-4.24
+./configure &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--disable-shared&lt;/span&gt;
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译c-ares&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+wget &lt;span class=&quot;nt&quot;&gt;--no-check-certificate&lt;/span&gt; https://c-ares.haxx.se/download/c-ares-1.13.0.tar.gz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzvf&lt;/span&gt; c-ares-1.13.0.tar.gz
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;c-ares-1.13.0
+./configure &lt;span class=&quot;nv&quot;&gt;LDFLAGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-static&lt;/span&gt;  &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;5、正式编译shadowsocks-libev&lt;/p&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; /root/miwifi/ss
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /root/miwifi/repo
+git clone https://github.com/shadowsocks/shadowsocks-libev
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;shadowsocks-libev
+git submodule init
+git submodule update
+./autogen.sh
+./configure &lt;span class=&quot;nv&quot;&gt;LIBS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-lpthread -lm&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;LDFLAGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-Wl,-static -static -static-libgcc -L&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/lib&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CFLAGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-I&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/include&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;arm-xiaomi-linux-uclibcgnueabi &lt;span class=&quot;nt&quot;&gt;--prefix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/root/miwifi/ss &lt;span class=&quot;nt&quot;&gt;--disable-ssp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--disable-documentation&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--with-mbedtls&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--with-pcre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--with-sodium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SS_LIB&lt;/span&gt;
+make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;&lt;/p&gt;</content><author><name></name></author><summary type="html">交叉编译小米路由器2（R2D）shadowsocks 背景：</summary></entry><entry><title type="html">entropy-note</title><link href="/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html" rel="alternate" type="text/html" title="entropy-note" /><published>2017-09-11T14:54:58+08:00</published><updated>2017-09-11T14:54:58+08:00</updated><id>/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note</id><content type="html" xml:base="/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html">&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;/script&gt;
+
+&lt;h1 id=&quot;如何通俗易懂理解熵&quot;&gt;如何通俗易懂理解&lt;code class=&quot;highlighter-rouge&quot;&gt;熵&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;让我们说人话！好的数学概念都应该是通俗易懂的。&lt;/p&gt;
+
+&lt;p&gt;信息熵，信息熵，怎么看怎么觉得这个“熵”字不顺眼，那就先不看。我们起码知道这个概念跟信息有关系。而它又是个数学模型里面的概念，一般而言是可以量化的。所以，第一个问题来了：**信息是不是可以量化？** &lt;/p&gt;
+
+&lt;p&gt;起码直觉上而言是可以的，不然怎么可能我们觉得有些人说的废话特别多，“没什么信息量”，有些人一语中的，一句话就传达了很大的信息量。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么有的信息量大有的信息量小？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;有些事情本来不是很确定，例如明天股票是涨还是跌。如果你告诉我明天NBA决赛开始了，这两者似乎没啥关系啊，所以你的信息对明天股票是涨是跌带来的信息量很少。但是假如NBA决赛一开始，大家都不关注股票了没人坐庄股票有99%的概率会跌，那你这句话信息量就很大，因为本来不确定的事情变得十分确定。&lt;/p&gt;
+
+&lt;p&gt;而有些事情本来就很确定了，例如太阳从东边升起，你再告诉我一百遍太阳从东边升起，你的话还是丝毫没有信息量的，因为这事情不能更确定了。&lt;/p&gt;
+
+&lt;p&gt;所以说信息量的大小跟事情不确定性的变化有关。&lt;/p&gt;
+
+&lt;p&gt;那么，不确定性的变化跟什么有关呢？&lt;/p&gt;
+
+&lt;p&gt;一，跟事情的可能结果的数量有关；二，跟概率有关。&lt;/p&gt;
+&lt;p&gt;先说一。例如我们讨论太阳从哪升起。本来就只有一个结果，我们早就知道，那么无论谁传递任何信息都是没有信息量的。当可能结果数量比较大时，我们得到的新信息才有潜力拥有大信息量。&lt;/p&gt;
+
+&lt;p&gt;二，单看可能结果数量不够，还要看初始的概率分布。例如一开始我就知道小明在电影院的有15*15个座位的A厅看电影。小明可以坐的位置有225个，可能结果数量算多了。可是假如我们一开始就知道小明坐在第一排的最左边的可能是99%，坐其它位置的可能性微乎其微，那么在大多数情况下，你再告诉我小明的什么信息也没有多大用，因为我们几乎确定小明坐第一排的最左边了。&lt;/p&gt;
+
+&lt;p&gt;那么，怎么衡量不确定性的变化的大小呢？怎么定义呢？&lt;/p&gt;
+
+&lt;p&gt;这个问题不好回答，但是假设我们已经知道这个量已经存在了，不妨就叫做信息量，那么你觉得信息量起码该满足些什么特点呢？&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;起码不是个负数吧，不然说句话还偷走信息呢~&lt;/li&gt;
+  &lt;li&gt;起码信息量和信息量之间可以相加吧！假如你告诉我的第一句话的信息量是3，在第一句话的基础上又告诉我一句话，额外信息量是4，那么两句话信息量加起来应该等于7吧！难道还能是5是9？&lt;/li&gt;
+  &lt;li&gt;刚刚已经提过，信息量跟概率有关系，但我们应该会觉得，信息量是连续依赖于概率的吧！就是说，某一个概率变化了0.0000001，那么这个信息量不应该变化很大。&lt;/li&gt;
+  &lt;li&gt;刚刚也提过，信息量大小跟可能结果数量有关。假如每一个可能的结果出现的概率一样，那么对于可能结果数量多的那个事件，新信息有更大的潜力具有更大的信息量，因为初始状态下不确定性更大。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;那有什么函数能满足上面四个条件呢？负的对数函数，也就是-log（x）！底数取什么都行。前面再随便乘个常数也行。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;a. 为什么不是正的？因为假如是正的，由于x是小于等于1的数，log（x）就小于等于0了。第一个特点满足。&lt;/li&gt;
+  &lt;li&gt;b. 咱们再来验证一下其他特点。三是最容易的。假如x是一个概率，那么log（x）是连续依赖于x的。done&lt;/li&gt;
+  &lt;li&gt;c。四呢？假如有n个可能结果，那么出现任意一个的概率是1/n，而-log(1/n)是n的增函数，没问题。&lt;/li&gt;
+  &lt;li&gt;d。最后验证二。由于-log(xy) = -log(x) -log(y)，所以也是对的。学数学的同学注意，这里的y可以是给定x的条件概率，当然也可以独立于x。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By the way，这个函数是唯一的（除了还可以多乘上任意一个常数），有时间可以自己证明一下，或者查书。&lt;/p&gt;
+&lt;p&gt;ok，所以我们知道一个事件的信息量就是这个事件发生的概率的负对数。&lt;/p&gt;
+
+&lt;p&gt;最后终于能回到信息熵。信息熵是跟所有可能性有关系的。每个可能事件的发生都有个概率。信息熵就是平均而言发生一个事件我们得到的信息量大小。所以数学上，信息熵其实是信息量的期望。（表达式参考其它答案或者看下面）&lt;/p&gt;
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;H(x)=-\sum_{x \in U}P(x)\log P(x)&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;至于为什么用“熵”这个怪字？大概是当时翻译的人觉得这个量跟热力学的熵有关系，所以就用了这个字，君不见字里头的火字旁？&lt;/p&gt;
+&lt;p&gt;熵最早是由热力学定义的一个函数，是普朗克来中国讲学的时候引入的。英文是“entropy”这个字，中文词汇中没有相关的字眼。当时是一个有名的姓胡的学者作为普朗克的翻译。因为这个熵“S”是定义为热量Q与温度的比值，所以当时他翻译是立刻创造出熵这个字，从火，从商。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;作者：滴水&lt;br /&gt;
+链接：https://www.zhihu.com/question/26446385/answer/50029104&lt;br /&gt;
+来源：知乎&lt;br /&gt;
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">tenserflow笔记</title><link href="/tenserflow/2017/09/09/tenserflow-note.html" rel="alternate" type="text/html" title="tenserflow笔记" /><published>2017-09-09T21:13:24+08:00</published><updated>2017-09-09T21:13:24+08:00</updated><id>/tenserflow/2017/09/09/tenserflow-note</id><content type="html" xml:base="/tenserflow/2017/09/09/tenserflow-note.html">&lt;h2 id=&quot;什么是神经网络&quot;&gt;什么是神经网络&lt;/h2&gt;
+&lt;p&gt;让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。&lt;/p&gt;
+
+&lt;p&gt;简单来说，神经网络就是能够从训练数据集学习的函数。&lt;/p&gt;
+
+&lt;h2 id=&quot;使用神经网络过程&quot;&gt;使用神经网络过程：&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;首先要构建一个解决某一个问题的神经网络。（创建函数）&lt;/li&gt;
+  &lt;li&gt;使用大量训练数据集，训练网络。（求解多元 方程组）&lt;/li&gt;
+  &lt;li&gt;最终得到一个神经网络（函数），输入数据，输出期望信息。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;简单原理&quot;&gt;简单原理&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;公式：W1x1 + W2x2 &amp;gt; b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ol&gt;
+  &lt;li&gt;W1、W2：weigh权重，用于改变分类直线的角度。神经元角度（W1、W2代表了输入与神经元连接的强度）&lt;/li&gt;
+  &lt;li&gt;b:bias 偏置，用于改变分类直线的位置。神经元角度（b表示一个神经元是否可被输入激活的阈值）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h6 id=&quot;所以可以重复使用这个公式分类任何可以被一条直线分类的数据集&quot;&gt;所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。&lt;/h6&gt;
+
+&lt;h4 id=&quot;问题怎么找到w1w2b的值即所谓参数值&quot;&gt;问题：怎么找到W1、W2、b的值，即所谓参数值。&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;训练神经元，反向传播和梯度下降算法
+训练过程中的计算机会尝试一点点增大或减小每个参数，看其能如何减少相比于训练 数据集的误差，以望能找到最优的参数组合。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;找到了w1w2b即可以使用神经元做分类&quot;&gt;找到了W1，W2，b，即可以使用神经元做分类。&lt;/h3&gt;
+
+&lt;p&gt;一个神经元所能做的唯一事情：使用权重和偏置检查输入值，将一个数据点分到两类中的一类。&lt;/p&gt;
+
+&lt;p&gt;带有两个输入时，一个神经元可以使用一条直线将一个数据点在一个二维空间中分成两类。如果有三个输入，一个神经元可以使用一个平面将一个三维空间分成两部分，以此类推。这就是所谓的「使用一个超平面分割 n 维空间（dividing n-dimensional space with a hyperplane）」。&lt;/p&gt;
+
+&lt;h4 id=&quot;一个神经元可以将任何数据点分为两类&quot;&gt;一个神经元可以将任何数据点分为两类&lt;/h4&gt;
+
+&lt;h2 id=&quot;隐含层&quot;&gt;隐含层&lt;/h2&gt;
+&lt;p&gt;使用隐含层，将输入变换为特征空间，把非线性的问题，使其线性分类。&lt;/p&gt;</content><author><name></name></author><summary type="html">什么是神经网络 让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。</summary></entry></feed>

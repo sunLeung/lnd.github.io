@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>tenserflow笔记 | yxleung blog</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="tenserflow笔记" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="什么是神经网络 让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。" />
+<meta property="og:description" content="什么是神经网络 让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。" />
+<link rel="canonical" href="/tenserflow/2017/09/09/tenserflow-note.html" />
+<meta property="og:url" content="/tenserflow/2017/09/09/tenserflow-note.html" />
+<meta property="og:site_name" content="yxleung blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-09-09T21:13:24+08:00" />
+<script type="application/ld+json">
+{"description":"什么是神经网络 让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。","@type":"BlogPosting","url":"/tenserflow/2017/09/09/tenserflow-note.html","headline":"tenserflow笔记","dateModified":"2017-09-09T21:13:24+08:00","datePublished":"2017-09-09T21:13:24+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/tenserflow/2017/09/09/tenserflow-note.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="yxleung blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">yxleung blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">tenserflow笔记</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-09-09T21:13:24+08:00" itemprop="datePublished">Sep 9, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="什么是神经网络">什么是神经网络</h2>
+<p>让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。</p>
+
+<p>简单来说，神经网络就是能够从训练数据集学习的函数。</p>
+
+<h2 id="使用神经网络过程">使用神经网络过程：</h2>
+<ol>
+  <li>首先要构建一个解决某一个问题的神经网络。（创建函数）</li>
+  <li>使用大量训练数据集，训练网络。（求解多元 方程组）</li>
+  <li>最终得到一个神经网络（函数），输入数据，输出期望信息。</li>
+</ol>
+
+<h2 id="简单原理">简单原理</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>公式：W1x1 + W2x2 &gt; b
+</code></pre></div></div>
+<ol>
+  <li>W1、W2：weigh权重，用于改变分类直线的角度。神经元角度（W1、W2代表了输入与神经元连接的强度）</li>
+  <li>b:bias 偏置，用于改变分类直线的位置。神经元角度（b表示一个神经元是否可被输入激活的阈值）</li>
+</ol>
+
+<h6 id="所以可以重复使用这个公式分类任何可以被一条直线分类的数据集">所以可以重复使用这个公式，分类任何可以被一条直线分类的数据集。</h6>
+
+<h4 id="问题怎么找到w1w2b的值即所谓参数值">问题：怎么找到W1、W2、b的值，即所谓参数值。</h4>
+
+<blockquote>
+  <p>训练神经元，反向传播和梯度下降算法
+训练过程中的计算机会尝试一点点增大或减小每个参数，看其能如何减少相比于训练 数据集的误差，以望能找到最优的参数组合。</p>
+</blockquote>
+
+<h3 id="找到了w1w2b即可以使用神经元做分类">找到了W1，W2，b，即可以使用神经元做分类。</h3>
+
+<p>一个神经元所能做的唯一事情：使用权重和偏置检查输入值，将一个数据点分到两类中的一类。</p>
+
+<p>带有两个输入时，一个神经元可以使用一条直线将一个数据点在一个二维空间中分成两类。如果有三个输入，一个神经元可以使用一个平面将一个三维空间分成两部分，以此类推。这就是所谓的「使用一个超平面分割 n 维空间（dividing n-dimensional space with a hyperplane）」。</p>
+
+<h4 id="一个神经元可以将任何数据点分为两类">一个神经元可以将任何数据点分为两类</h4>
+
+<h2 id="隐含层">隐含层</h2>
+<p>使用隐含层，将输入变换为特征空间，把非线性的问题，使其线性分类。</p>
+
+  </div><a class="u-url" href="/tenserflow/2017/09/09/tenserflow-note.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">yxleung blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">yxleung blog</li><li><a class="u-email" href="mailto:liangyuxin.02@gmail.com">liangyuxin.02@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/yxleung"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">yxleung</span></a></li><li><a href="https://www.twitter.com/yxleung"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">yxleung</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>交叉编译小米路由器2（R2D）shadowsocks | yxleung blog</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="交叉编译小米路由器2（R2D）shadowsocks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="交叉编译小米路由器2（R2D）shadowsocks 背景：" />
+<meta property="og:description" content="交叉编译小米路由器2（R2D）shadowsocks 背景：" />
+<link rel="canonical" href="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" />
+<meta property="og:url" content="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" />
+<meta property="og:site_name" content="yxleung blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-01-02T17:33:01+08:00" />
+<script type="application/ld+json">
+{"description":"交叉编译小米路由器2（R2D）shadowsocks 背景：","@type":"BlogPosting","url":"/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html","headline":"交叉编译小米路由器2（R2D）shadowsocks","dateModified":"2018-01-02T17:33:01+08:00","datePublished":"2018-01-02T17:33:01+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="yxleung blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">yxleung blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">交叉编译小米路由器2（R2D）shadowsocks</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-01-02T17:33:01+08:00" itemprop="datePublished">Jan 2, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="交叉编译小米路由器2r2dshadowsocks">交叉编译小米路由器2（R2D）shadowsocks</h1>
+<h2 id="背景">背景：</h2>
+
+<blockquote>
+  <p>我是使用 https://shadowsocks.la/ 提供的shadowsocks服务，由于最近服务商把shadowsocks加密方式换成了google的[chacha20-ietf-poly1305]，但是小米路由器（R2D）内置的ss-redir版本旧不支持。问题就来了，我一直在小米路由器做的透明代理（简单来说既是连接到这个路由的所有请求都自动走shadowsocks服务）就失效了;所以我需要更新R2D的ss-redir以便支持[chacha20-ietf-poly1305]加密;google后没有找到现成的，相关的文章也少，最后只能自己交叉编译一个，同时把编译过程记录下来，方便大家使用;</p>
+</blockquote>
+
+<h2 id="小白党直接使用我编译">小白党，直接使用我编译：</h2>
+<blockquote>
+  <p>最新版本openwrt-shadowsock下载链接</p>
+</blockquote>
+
+<h2 id="折腾党我们手把手重新编译一次">折腾党，我们手把手重新编译一次：</h2>
+
+<blockquote>
+  <p>编译清单
+项目地址：https://github.com/shadowsocks/shadowsocks-libev
+编译环境：ubuntu
+小米路由器SDK：http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip
+编译工具：make git autoconf libtool 
+编译核心依赖：TLS pcre libsodium libev c-ares</p>
+</blockquote>
+
+<p>下面的操作都在自己的home目录进行，我是临时用docker构建了个ubuntu编译的，所以都在/root目录下
+1、下载小米路由器SDK</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://bigota.miwifi.com/xiaoqiang/sdk/tools/package/sdk_package.zip
+unzip sdk_package.zip
+</code></pre></div></div>
+
+<p>2、设置环境变量</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/root/miwifi/sdk_package/toolchain/bin
+<span class="nb">export </span><span class="nv">CC</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi-gcc
+<span class="nb">export </span><span class="nv">CXX</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi-g++<span class="sb">`</span>
+<span class="c">#核心依赖包编译后放在这里</span>
+<span class="nb">mkdir</span> /root/miwifi/ss_lib
+<span class="nb">export </span><span class="nv">SS_LIB</span><span class="o">=</span>/root/miwifi/ss_lib
+</code></pre></div></div>
+
+<p>3、安装基础依赖包</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt <span class="nb">install</span> <span class="nt">-y</span> make git autoconf libtool
+</code></pre></div></div>
+
+<p>4、下载编译安装核心依赖包</p>
+
+<p>编译mbedtls</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /root/miwifi/repo
+wget <span class="nt">--no-check-certificate</span> https://tls.mbed.org/download/mbedtls-2.6.0-gpl.tgz
+<span class="nb">tar</span> <span class="nt">-xzvf</span> mbedtls-2.6.0-gpl.tgz
+<span class="nb">cd </span>mbedtls-2.6.0
+make <span class="nt">-j</span><span class="k">$(</span><span class="nb">nproc</span><span class="k">)</span> <span class="nv">DESTDIR</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nv">CC</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi-gcc <span class="nv">AR</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi-ar <span class="nv">LD</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi-ld <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>编译pcre</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /root/miwifi/repo
+wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.41.tar.gz
+<span class="nb">tar</span> <span class="nt">-xzvf</span> pcre-8.41.tar.gz
+<span class="nb">cd </span>pcre-8.41
+./configure <span class="nt">--host</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nt">--disable-shared</span> <span class="nt">--enable-utf8</span> <span class="nt">--enable-unicode-properties</span>
+make <span class="nt">-j</span><span class="k">$(</span><span class="nb">nproc</span><span class="k">)</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>编译libsodium</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /root/miwifi/repo
+wget <span class="nt">--no-check-certificate</span> https://download.libsodium.org/libsodium/releases/libsodium-1.0.13.tar.gz
+<span class="nb">tar</span> <span class="nt">-xzvf</span> libsodium-1.0.13.tar.gz
+<span class="nb">cd </span>libsodium-1.0.13
+./configure <span class="nt">--host</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nt">--disable-ssp</span> <span class="nt">--disable-shared</span>
+make <span class="nt">-j</span><span class="k">$(</span><span class="nb">nproc</span><span class="k">)</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>编译libev</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /root/miwifi/repo
+wget http://dist.schmorp.de/libev/libev-4.24.tar.gz
+<span class="nb">tar</span> <span class="nt">-xzvf</span> libev-4.24.tar.gz
+<span class="nb">cd </span>libev-4.24
+./configure <span class="nt">--host</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nt">--disable-shared</span>
+make <span class="nt">-j</span><span class="k">$(</span><span class="nb">nproc</span><span class="k">)</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>编译c-ares</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /root/miwifi/repo
+wget <span class="nt">--no-check-certificate</span> https://c-ares.haxx.se/download/c-ares-1.13.0.tar.gz
+<span class="nb">tar</span> <span class="nt">-xzvf</span> c-ares-1.13.0.tar.gz
+<span class="nb">cd </span>c-ares-1.13.0
+./configure <span class="nv">LDFLAGS</span><span class="o">=</span><span class="nt">-static</span>  <span class="nt">--host</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi <span class="nt">--prefix</span><span class="o">=</span><span class="nv">$SS_LIB</span>
+</code></pre></div></div>
+
+<p>5、正式编译shadowsocks-libev</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> /root/miwifi/ss
+<span class="nb">cd</span> /root/miwifi/repo
+git clone https://github.com/shadowsocks/shadowsocks-libev
+<span class="nb">cd </span>shadowsocks-libev
+git submodule init
+git submodule update
+./autogen.sh
+./configure <span class="nv">LIBS</span><span class="o">=</span><span class="s2">"-lpthread -lm"</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">"-Wl,-static -static -static-libgcc -L</span><span class="nv">$SS_LIB</span><span class="s2">/lib"</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-I</span><span class="nv">$SS_LIB</span><span class="s2">/include"</span> <span class="nt">--host</span><span class="o">=</span>arm-xiaomi-linux-uclibcgnueabi <span class="nt">--prefix</span><span class="o">=</span>/root/miwifi/ss <span class="nt">--disable-ssp</span> <span class="nt">--disable-documentation</span> <span class="nt">--with-mbedtls</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nt">--with-pcre</span><span class="o">=</span><span class="nv">$SS_LIB</span> <span class="nt">--with-sodium</span><span class="o">=</span><span class="nv">$SS_LIB</span>
+make <span class="nt">-j</span><span class="k">$(</span><span class="nb">nproc</span><span class="k">)</span> <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;</p>
+
+  </div><a class="u-url" href="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">yxleung blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">yxleung blog</li><li><a class="u-email" href="mailto:liangyuxin.02@gmail.com">liangyuxin.02@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/yxleung"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">yxleung</span></a></li><li><a href="https://www.twitter.com/yxleung"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">yxleung</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
