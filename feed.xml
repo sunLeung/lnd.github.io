@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-07T09:57:11+08:00</updated><id>http://localhost:4000/</id><title type="html">yxleung blog</title><subtitle></subtitle><entry><title type="html">ssh proxy setting</title><link href="http://localhost:4000/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html" rel="alternate" type="text/html" title="ssh proxy setting" /><published>2018-09-06T15:31:40+08:00</published><updated>2018-09-06T15:31:40+08:00</updated><id>http://localhost:4000/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy</id><content type="html" xml:base="http://localhost:4000/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html">&lt;h1 id=&quot;1-ssh-proxy-settting&quot;&gt;1. ssh proxy settting&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-09-07T10:11:36+08:00</updated><id>/</id><title type="html">yxleung blog</title><subtitle></subtitle><entry><title type="html">ssh proxy setting</title><link href="/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html" rel="alternate" type="text/html" title="ssh proxy setting" /><published>2018-09-06T15:31:40+08:00</published><updated>2018-09-06T15:31:40+08:00</updated><id>/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy</id><content type="html" xml:base="/ssh/proxy/tunnel/setting/2018/09/06/ssh_proxy.html">&lt;h1 id=&quot;1-ssh-proxy-settting&quot;&gt;1. ssh proxy settting&lt;/h1&gt;
 
 &lt;h2 id=&quot;方法一通过命令行直连&quot;&gt;方法一、通过命令行直连&lt;/h2&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ssh通过跳板机代理，直连目标机器&lt;/span&gt;
@@ -33,7 +33,7 @@ ssh &lt;span class=&quot;nt&quot;&gt;-qTNf&lt;/span&gt; &lt;span class=&quot;nt&
 
 &lt;span class=&quot;c&quot;&gt;# 可选（socks5转http）&lt;/span&gt;
 brew services start privoxy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. ssh proxy settting</summary></entry><entry><title type="html">交叉编译小米路由器2（R2D）shadowsocks</title><link href="http://localhost:4000/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" rel="alternate" type="text/html" title="交叉编译小米路由器2（R2D）shadowsocks" /><published>2018-01-02T17:33:01+08:00</published><updated>2018-01-02T17:33:01+08:00</updated><id>http://localhost:4000/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82(R2D)shadowsocks</id><content type="html" xml:base="http://localhost:4000/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html">&lt;h1 id=&quot;交叉编译小米路由器2r2dshadowsocks&quot;&gt;交叉编译小米路由器2（R2D）shadowsocks&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">1. ssh proxy settting</summary></entry><entry><title type="html">交叉编译小米路由器2（R2D）shadowsocks</title><link href="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html" rel="alternate" type="text/html" title="交叉编译小米路由器2（R2D）shadowsocks" /><published>2018-01-02T17:33:01+08:00</published><updated>2018-01-02T17:33:01+08:00</updated><id>/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82(R2D)shadowsocks</id><content type="html" xml:base="/shadowsocks/r2d/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8/2018/01/02/%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A82-R2D-shadowsocks.html">&lt;h1 id=&quot;交叉编译小米路由器2r2dshadowsocks&quot;&gt;交叉编译小米路由器2（R2D）shadowsocks&lt;/h1&gt;
 &lt;h2 id=&quot;背景&quot;&gt;背景：&lt;/h2&gt;
 
 &lt;blockquote&gt;
@@ -44,6 +44,13 @@ brew services start privoxy
 &lt;blockquote&gt;
   &lt;p&gt;最新版本openwrt-shadowsock&lt;a href=&quot;/download/ss.zip&quot;&gt;下载链接&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;h2 id=&quot;使用方法&quot;&gt;使用方法&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;下载后解压后把自己的shadowsocks服务信息填写在config目录下面的ss-redir.json；&lt;/li&gt;
+  &lt;li&gt;运行start.sh启动服务；&lt;/li&gt;
+  &lt;li&gt;停止服务的话运行stop.sh；&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h2 id=&quot;折腾党我们手把手重新编译一次&quot;&gt;折腾党，我们手把手重新编译一次：&lt;/h2&gt;
 
@@ -132,7 +139,7 @@ git submodule update
 make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nproc&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;&lt;/p&gt;</content><author><name></name></author><summary type="html">交叉编译小米路由器2（R2D）shadowsocks 背景：</summary></entry><entry><title type="html">entropy-note</title><link href="http://localhost:4000/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html" rel="alternate" type="text/html" title="entropy-note" /><published>2017-09-11T14:54:58+08:00</published><updated>2017-09-11T14:54:58+08:00</updated><id>http://localhost:4000/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note</id><content type="html" xml:base="http://localhost:4000/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html">&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
+&lt;p&gt;编译完成就可以看到/root/miwifi/ss目录下有编译好的文件，copy到小米路由器上跑就好了;&lt;/p&gt;</content><author><name></name></author><summary type="html">交叉编译小米路由器2（R2D）shadowsocks 背景：</summary></entry><entry><title type="html">entropy-note</title><link href="/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html" rel="alternate" type="text/html" title="entropy-note" /><published>2017-09-11T14:54:58+08:00</published><updated>2017-09-11T14:54:58+08:00</updated><id>/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note</id><content type="html" xml:base="/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/%E4%BF%A1%E6%81%AF%E7%86%B5/%E9%A6%99%E5%86%9C%E7%86%B5/entropy/2017/09/11/entropy-note.html">&lt;script type=&quot;text/javascript&quot; async=&quot;&quot; src=&quot;//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
 &lt;/script&gt;
 
 &lt;h1 id=&quot;如何通俗易懂理解熵&quot;&gt;如何通俗易懂理解&lt;code class=&quot;highlighter-rouge&quot;&gt;熵&lt;/code&gt;&lt;/h1&gt;
@@ -190,7 +197,7 @@ make &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt;&lt;span class=&quot;k&quot
 链接：https://www.zhihu.com/question/26446385/answer/50029104&lt;br /&gt;
 来源：知乎&lt;br /&gt;
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">tenserflow笔记</title><link href="http://localhost:4000/tenserflow/2017/09/09/tenserflow-note.html" rel="alternate" type="text/html" title="tenserflow笔记" /><published>2017-09-09T21:13:24+08:00</published><updated>2017-09-09T21:13:24+08:00</updated><id>http://localhost:4000/tenserflow/2017/09/09/tenserflow-note</id><content type="html" xml:base="http://localhost:4000/tenserflow/2017/09/09/tenserflow-note.html">&lt;h2 id=&quot;什么是神经网络&quot;&gt;什么是神经网络&lt;/h2&gt;
+&lt;/blockquote&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">tenserflow笔记</title><link href="/tenserflow/2017/09/09/tenserflow-note.html" rel="alternate" type="text/html" title="tenserflow笔记" /><published>2017-09-09T21:13:24+08:00</published><updated>2017-09-09T21:13:24+08:00</updated><id>/tenserflow/2017/09/09/tenserflow-note</id><content type="html" xml:base="/tenserflow/2017/09/09/tenserflow-note.html">&lt;h2 id=&quot;什么是神经网络&quot;&gt;什么是神经网络&lt;/h2&gt;
 &lt;p&gt;让计算机自己去解决问题，神经网络就是一个函数，从训练数据集中求出多元方程组的解，之后使用这个函数，求出输入对应的预期输出。&lt;/p&gt;
 
 &lt;p&gt;简单来说，神经网络就是能够从训练数据集学习的函数。&lt;/p&gt;
